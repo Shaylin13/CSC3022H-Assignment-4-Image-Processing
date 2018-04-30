@@ -136,7 +136,7 @@ namespace PDYSHA009
 			return temp;
 		}
 		else {
-			exit(1);
+			cout<<"Cannot add, dimensions of 2 images are not the same"<<endl;
 		}
 	}
 
@@ -167,16 +167,16 @@ namespace PDYSHA009
 			return temp;
 		}
 		else {
-			exit(1);
+			cout<<"Cannot subtract, dimensions of 2 images are not the same"<<endl;
 		}
 	}
 
 	Image Image::operator!() const
 	{
-		Image tmp(*this);
+		Image temp(*this);
 
 		Image::iterator beg = begin();
-		Image::iterator inStart = tmp.begin();
+		Image::iterator inStart = temp.begin();
 
 		while (beg != end()) {
 			int number = 255 - (int)(*beg);
@@ -194,17 +194,17 @@ namespace PDYSHA009
 			++inStart;
 		}
 
-		return tmp;
+		return temp;
 	}
 
 	Image Image::operator/(const Image& rhs) const
 	{
 		if(height == rhs.height && width == rhs.width)
 		{
-			Image tmp(rhs);
+			Image temp(rhs);
 
 			Image::iterator beg = begin();
-			Image::iterator inStart = tmp.begin();
+			Image::iterator inStart = temp.begin();
 
 			while (beg != end()) {
 				if ((int)(*inStart) == 255) {
@@ -224,20 +224,20 @@ namespace PDYSHA009
 				++inStart;
 			}
 
-			return tmp;
+			return temp;
 		}
 
 		else {
-			exit(1);
+			cout<<"error"<<endl;
 		}
 	}
 
 	Image Image::operator*(const int threshold) const
 	{
-		Image tmp(*this);
+		Image temp(*this);
 
 		Image::iterator beg = begin();
-		Image::iterator inStart = tmp.begin();
+		Image::iterator inStart = temp.begin();
 
 		while (beg != end()) {
 			if ((int)(*inStart) <= threshold) {
@@ -251,7 +251,7 @@ namespace PDYSHA009
 			++inStart;
 		}
 
-		return tmp;
+		return temp;
 	}
 
 	void Image::save(string FileName) {
@@ -356,6 +356,7 @@ namespace PDYSHA009
 
 	Image::iterator Image::end() const {
 		return iterator(&data[width*height]);
+		//return iterator(&data.get()+width*height);
 	}
 
 	ofstream& operator<<(ofstream& os, const Image& image) {
