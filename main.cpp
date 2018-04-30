@@ -68,6 +68,7 @@ int main(int argc, char* argv[])
         
         cout<<"threshold of "<<argv[3]<<" applied to "<<argv[2]<<" and saved to "<<argv[4]<<endl;
     }
-
+    
+    cout<<"Program end."<<endl;
 	return 0;
 }
