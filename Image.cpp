@@ -3,7 +3,6 @@
 #include <memory>
 #include <string>
 #include <sstream>
-
 #include "Image.h"
 
 using namespace std;
@@ -175,10 +174,10 @@ namespace PDYSHA009
 	{
 		Image temp(*this);
 
-		Image::iterator beg = begin();
+		Image::iterator beg = begin(), thisend = this->end();
 		Image::iterator inStart = temp.begin();
 
-		while (beg != end()) {
+		while (beg != thisend) {
 			int number = 255 - (int)(*beg);
 
 			if (number > 255) {
@@ -203,10 +202,10 @@ namespace PDYSHA009
 		{
 			Image temp(rhs);
 
-			Image::iterator beg = begin();
+			Image::iterator beg = begin(), thisEnd = this->end();
 			Image::iterator inStart = temp.begin();
 
-			while (beg != end()) {
+			while (beg != thisEnd) {
 				if ((int)(*inStart) == 255) {
 					int number = (int)(*beg);
 
@@ -228,7 +227,7 @@ namespace PDYSHA009
 		}
 
 		else {
-			cout<<"error"<<endl;
+			cout<<"error, dimensions must be the same"<<endl;
 		}
 	}
 
@@ -236,7 +235,7 @@ namespace PDYSHA009
 	{
 		Image temp(*this);
 
-		Image::iterator beg = begin();
+		Image::iterator beg = begin(), thisEnd = this->end();
 		Image::iterator inStart = temp.begin();
 
 		while (beg != end()) {
