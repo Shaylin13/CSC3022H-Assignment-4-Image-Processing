@@ -359,29 +359,29 @@ namespace PDYSHA009
 		//return iterator(&data.get()+width*height);
 	}
 
-	ofstream& operator<<(ofstream& os, const Image& image) {
-		os << "P5" << "#" << image.width << " " << image.height << '\n' << 255 << endl;
-		os.write((char*)image.data.get(), image.width*image.height);
+	ofstream& operator<<(ofstream& ostream, const Image& image) {
+		ostream << "P5" << "#" << image.width << " " << image.height << '\n' << 255 << endl;
+		ostream.write((char*)image.data.get(), image.width*image.height);
 
-		return os;
+		return ostream;
 	}
 
-	istream& operator>>(istream& is, Image& image) {
+	istream& operator>>(istream& istream, Image& image) {
 		string line;
-		getline(is, line);
+		getline(istream, line);
 
 		while (line[0] == '#') {
-			getline(is, line);
+			getline(istream, line);
 		}
 
 		istringstream dimensions(line);
 		dimensions >> image.width >> image.height;
 
 		int values;
-		is >> values >> ws;
+		istream >> values >> ws;
 
 		image.data = unique_ptr<unsigned char[]>(new unsigned char[image.width*image.height]);
-		is.read((char*)image.data.get(), image.width*image.height);
-		return is;
+		istream.read((char*)image.data.get(), image.width*image.height);
+		return istream;
 	}
 }
