@@ -113,9 +113,9 @@ namespace PDYSHA009
 	{
 		if(height == rhs.height && width == rhs.width)
 		{
-			Image tmp(*this);
+			Image temp(*this);
 
-			Image::iterator beg = tmp.begin();
+			Image::iterator beg = temp.begin();
 			Image::iterator inStart = rhs.begin(), inEnd = rhs.end();
 
 			while (inStart != inEnd) {
@@ -133,7 +133,7 @@ namespace PDYSHA009
 				++inStart;
 			}
 
-			return tmp;
+			return temp;
 		}
 		else {
 			exit(1);
@@ -144,9 +144,9 @@ namespace PDYSHA009
 	{
 		if(height == rhs.height && width == rhs.width)
 		{
-			Image tmp(*this);
+			Image temp(*this);
 
-			Image::iterator beg = tmp.begin();
+			Image::iterator beg = temp.begin();
 			Image::iterator inStart = rhs.begin(), inEnd = rhs.end();
 
 			while (inStart != inEnd) {
@@ -164,7 +164,7 @@ namespace PDYSHA009
 				++inStart;
 			}
 
-			return tmp;
+			return temp;
 		}
 		else {
 			exit(1);
