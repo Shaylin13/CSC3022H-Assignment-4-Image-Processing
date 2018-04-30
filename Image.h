@@ -14,7 +14,6 @@ namespace PDYSHA009 {
 		public:
 			int height, width;
 			std::unique_ptr<unsigned char[]> data;
-			std::string fileName;
 
 			Image();
 			Image(std::unique_ptr<unsigned char[]> data, int width, int height);

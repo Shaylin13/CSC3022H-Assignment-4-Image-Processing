@@ -8,7 +8,7 @@ using namespace PDYSHA009;
 int main(int argc, char* argv[])
 {
 
-	cout << "Image Proccessor Online"<<endl;
+	cout << "Image processing initiated"<<endl;
 	cout<<"\n";
     
     if(argv[1][1]=='a')//add

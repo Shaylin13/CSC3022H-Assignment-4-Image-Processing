@@ -16,14 +16,12 @@ namespace PDYSHA009
 		height = 0;
 		width = 0;
 		data = nullptr;
-		fileName = "";
 	}
 
-	Image::Image(unique_ptr<unsigned char[]> d, int w, int h) {
-		width = w;
-		height = h;
-		data = move(d);
-		fileName = "";
+	Image::Image(unique_ptr<unsigned char[]> inData, int inWidth, int inHeight) {
+		width = inWidth;
+		height = inHeight;
+		data = move(inData);
 	}
 
 	Image::Image(const Image& rhs)
@@ -31,9 +29,7 @@ namespace PDYSHA009
 	{
 		width = rhs.width;
 		height = rhs.height;
-		fileName = rhs.fileName;
-
-		data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
+    	data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
 
 		Image::iterator beg = begin();
 		Image::iterator inStart = rhs.begin(), inEnd = rhs.end();
@@ -51,9 +47,7 @@ namespace PDYSHA009
 	{
 		width = rhs.width;
 		height = rhs.height;
-		fileName = rhs.fileName;
-
-		data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
+    	data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
 
 		Image::iterator beg = begin();
 		Image::iterator inStart = rhs.begin(), inEnd = rhs.end();
@@ -64,7 +58,6 @@ namespace PDYSHA009
 			++beg;
 			++inStart;
 		}
-
 		return *this;
 	}
 
@@ -72,9 +65,7 @@ namespace PDYSHA009
 	{
 		width = rhs.width;
 		height = rhs.height;
-		fileName = rhs.fileName;
-
-		data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
+        data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
 
 		Image::iterator beg = begin();
 		Image::iterator inStart = rhs.begin(), inEnd = rhs.end();
@@ -89,15 +80,12 @@ namespace PDYSHA009
 		rhs.width = 0;
 		rhs.height = 0;
 		rhs.data = nullptr;
-		rhs.fileName = "";
 	}
 
 	Image& Image::operator=(Image&& rhs)
 	{
 		width = rhs.width;
 		height = rhs.height;
-		fileName = rhs.fileName;
-
 		data = unique_ptr<unsigned char[]>(new unsigned char[rhs.height * rhs.width]);
 
 		Image::iterator beg = begin();
@@ -113,7 +101,6 @@ namespace PDYSHA009
 		rhs.width = 0;
 		rhs.height = 0;
 		rhs.data = nullptr;
-		rhs.fileName = "";
 
 		return *this;
 	}
@@ -267,11 +254,11 @@ namespace PDYSHA009
 		return tmp;
 	}
 
-	void Image::save(string saveFile) {
-		ofstream file(saveFile, ios::out | ios::binary);
+	void Image::save(string FileName) {
+		ofstream file(FileName, ios::out | ios::binary);
 
 		file << "P5" << endl;
-		file << "#" << saveFile << endl;
+		file << "#" << FileName << endl;
 		file << width << " " << height << endl;
 		file << "255" << endl;
 
@@ -279,14 +266,13 @@ namespace PDYSHA009
 		file.close();
 	}
 
-	void Image::load(string loadFile) {
-		ifstream file(loadFile, ios::in | ios::binary);
-		fileName = loadFile;
+	void Image::load(string FileName) {
+		ifstream inFile(FileName, ios::in | ios::binary);
 
 		string line;
 
-		while (!file.eof()) {
-			getline(file, line);
+		while (!inFile.eof()) {
+			getline(inFile, line);
 
 			if (line[0] == '#' || line == "P5") {
 				continue;
@@ -298,21 +284,21 @@ namespace PDYSHA009
 
 			else {
 				stringstream ss(line);
-				string number;
+				string dimension;
 
-				getline(ss, number, ' ');
-				width = stoi(number);
+				getline(ss, dimension, ' ');
+				width = stoi(dimension);
 
-				getline(ss, number, ' ');
-				height = stoi(number);
+				getline(ss, dimension, ' ');
+				height = stoi(dimension);
 			}
 		}
 
-		unsigned char *imgbytes = new unsigned char[width*height];
-		file.read((char*) imgbytes, width*height);
-		file.close();
+		unsigned char *tempData = new unsigned char[width*height];
+		inFile.read((char*) tempData, width*height);
+		inFile.close();
 
-		data = unique_ptr<unsigned char[]>(imgbytes);
+		data = unique_ptr<unsigned char[]>(tempData);
 	}
 
 	const Image::iterator& Image::iterator::operator++()
@@ -387,8 +373,8 @@ namespace PDYSHA009
 			getline(is, line);
 		}
 
-		istringstream wh(line);
-		wh >> image.width >> image.height;
+		istringstream dimensions(line);
+		dimensions >> image.width >> image.height;
 
 		int values;
 		is >> values >> ws;
