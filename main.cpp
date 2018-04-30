@@ -20,6 +20,7 @@ int main(int argc, char* argv[])
         Image i3;
         i3 = i1+i2;
         i3.save(argv[4]);
+        cout<<argv[2]<<" added to "<<argv[3]<<" and saved to "<<argv[4]<<endl;
     }
     else if(argv[1][1]=='s')//subtract
     {
@@ -30,6 +31,8 @@ int main(int argc, char* argv[])
         Image i3;
         i3 = i1-i2;
         i3.save(argv[4]);
+        
+        cout<<argv[3]<<" subtracted from "<<argv[2]<<" and saved to "<<argv[4]<<endl;
     }
     else if(argv[1][1]=='i')//invert
     {
@@ -38,6 +41,8 @@ int main(int argc, char* argv[])
         Image i2;
         i2 = !i1;
         i2.save(argv[3]);
+        
+        cout<<argv[2]<<" inverted and saved to "<<argv[3]<<endl;
     }
     else if(argv[1][1]=='I')//mask
     {
@@ -48,6 +53,8 @@ int main(int argc, char* argv[])
         Image i3;
         i3 = i1/i2;
         i3.save(argv[4]);
+        
+        cout<<"mask saved to "<<argv[4]<<endl;
     }
     else if(argv[1][1]=='t')//threshold
     {
@@ -58,6 +65,8 @@ int main(int argc, char* argv[])
         Image i2;
         i2 = i1*threshold;
         i2.save(argv[4]);
+        
+        cout<<"threshold of "<<argv[3]<<" applied to "<<argv[2]<<" and saved to "<<argv[4]<<endl;
     }
 
 	return 0;
