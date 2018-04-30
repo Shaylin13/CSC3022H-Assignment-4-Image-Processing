@@ -52,19 +52,18 @@ namespace PDYSHA009 {
 
 					}
 
+					const iterator operator++(int);
+					
 					const iterator& operator++();
 
-					const iterator operator++(int);
-
-					const iterator& operator--();
-
 					const iterator operator--(int);
+					
+					const iterator& operator--();
 
 					unsigned char& operator*();
 
-					iterator& operator=(const iterator& rhs);
-
 					iterator& operator=(iterator&& rhs);
+					iterator& operator=(const iterator& rhs);
 
                     bool operator!=(const iterator& rhs);
 					bool operator==(const iterator& rhs);
